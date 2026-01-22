@@ -41,5 +41,7 @@ from        remits_835 as remits
                 on  debtor.debtor_idx = trans.debtor_idx
                 and trans.is_payment = 1
                 and remits.claim_payment_amount = trans.sig_trans_amt
+-- where       remits.claim_payment_amount > 0
+--             and trans.trans_idx is null
 order by    1
 ;

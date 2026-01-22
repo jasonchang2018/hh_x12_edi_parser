@@ -1,3 +1,6 @@
+create or replace view
+    edwprodhh.edi_835_parser.report_835_funnel
+as
 with claims_837 as
 (
     with claims as
@@ -35,20 +38,43 @@ with claims_837 as
                     regexp_substr(ltrim(claim_id, '0'), '(\\d*$)', 1, 1, 'e')       as claim_id_format,
         from        unioned_map
     )
+    , get_claim_info as
+    (
+        with unioned as
+        (
+            select      response_id,
+                        claim_id,
+                        total_claim_charge
+            from        edwprodhh.edi_837i_parser.claims
+            union all
+            select      response_id,
+                        claim_id,
+                        total_claim_charge
+            from        edwprodhh.edi_837p_parser.claims
+        )
+        select      unioned.*
+        from        unioned
+                    left join
+                        (
+                            select      distinct
+                                        response_id,
+                                        file_date
+                            from        edwprodhh.edi_837i_parser.response_flat
+                        )   as file_dates
+                        on unioned.response_id = file_dates.response_id
+        qualify     row_number() over (partition by unioned.claim_id order by file_dates.file_date desc) = 1
+    )
     select      claims.claim_id_format,
                 claims.upload_date,
                 map_claim_id.claim_id,
-                -- coalesce(claims_i.total_claim_charge, claims_p.total_claim_charge)::number(18,2) as total_claim_charge
+                coalesce(get_claim_info.total_claim_charge, 0) as total_claim_charge_837
     from        claims
                 inner join
                     map_claim_id
                     on claims.claim_id_format = map_claim_id.claim_id_format
-                -- left join
-                --     edwprodhh.edi_837i_parser.claims as claims_i
-                --     on map_claim_id.claim_id = claims_i.claim_id
-                -- left join
-                --     edwprodhh.edi_837p_parser.claims as claims_p
-                --     on map_claim_id.claim_id = claims_p.claim_id
+                left join
+                    get_claim_info
+                    on map_claim_id.claim_id = get_claim_info.claim_id
 )
 , status_277 as
 (
@@ -86,7 +112,8 @@ with claims_837 as
     select      remits.claim_id,
                 /*Inflates match when multiple payments of same amount. 
                   Assumes cubs posts at claim level and not at service line level.*/
-                max(case when trans.trans_idx is not null then 1 else 0 end) as is_posted_cubs_
+                max(case when trans.trans_idx is not null then 1 else 0 end) as is_posted_cubs_,
+                sum(trans.sig_trans_amt) as dol_posted_cubs
     from        remits_835 as remits
                 left join
                     edwprodhh.pub_jchang.master_debtor as debtor
@@ -115,8 +142,9 @@ with claims_837 as
                 coalesce(posted_cubs.is_posted_cubs_, 0)                                                    as is_posted_cubs,
 
                 remits_835.claim_charge_amount,
-                remits_835.claim_payment_amount,
-                remits_835.claim_patient_resp_amount
+                remits_835.claim_payment_amount as claim_payment_amount_835,
+                remits_835.claim_patient_resp_amount,
+                posted_cubs.dol_posted_cubs
 
 
     from        claims_837
@@ -142,12 +170,16 @@ select      upload_date,
             sum(is_paid_835)                                                    as n_paid_835,
             sum(is_posted_cubs)                                                 as n_posted_cubs,
 
-            avg(case when is_submit_837     = 1 then is_response_277    end)    as p_response_277,
-            avg(case when is_response_277   = 1 then is_accepted_277    end)    as p_accepted_277,
-            avg(case when is_accepted_277   = 1 then is_remit_835       end)    as p_remit_835,
-            avg(case when is_remit_835      = 1 then is_processed_835   end)    as p_processed_835,
-            avg(case when is_processed_835  = 1 then is_paid_835        end)    as p_paid_835,
-            avg(case when is_paid_835       = 1 then is_posted_cubs     end)    as p_posted_cubs
+            -- avg(case when is_submit_837     = 1 then is_response_277    end)    as p_response_277,
+            -- avg(case when is_response_277   = 1 then is_accepted_277    end)    as p_accepted_277,
+            -- avg(case when is_accepted_277   = 1 then is_remit_835       end)    as p_remit_835,
+            -- avg(case when is_remit_835      = 1 then is_processed_835   end)    as p_processed_835,
+            -- avg(case when is_processed_835  = 1 then is_paid_835        end)    as p_paid_835,
+            -- avg(case when is_paid_835       = 1 then is_posted_cubs     end)    as p_posted_cubs,
+
+            sum(total_claim_charge_837)                                         as total_claim_charge_837,
+            sum(claim_payment_amount_835)                                       as claim_payment_amount_835,
+            sum(dol_posted_cubs)                                                as dol_posted_cubs
 
 from        joined
 group by    1
