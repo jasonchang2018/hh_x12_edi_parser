@@ -3,7 +3,7 @@
 
 
 -- Add raw 837 files to stage.
--- snowsql -q "PUT file://\\\\hh-fileserver01\\TempUL2\\IU_Health_Complex\\837_FILES_IN\\2025\\*_i*.837 @edwprodhh.edi_837i_parser.stg_response auto_compress=false;"
+-- snowsql -q "PUT file://\\\\hh-fileserver01\\TempUL2\\IU_Health_Complex\\837_FILES_IN\\2026\\*_i*.837 @edwprodhh.edi_837i_parser.stg_response auto_compress=false;"
 -- list @edwprodhh.edi_837i_parser.stg_response;
 
 create or replace procedure
