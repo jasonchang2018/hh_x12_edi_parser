@@ -27,7 +27,9 @@ begin
     insert into
         edwprodhh.edi_835_parser.response_files (file_name)
     select      distinct
-                file_name
+                response_id,
+                file_name,
+                upload_date
     from        edwprodhh.edi_835_parser.response
     where       upload_date = current_date()
     ;

@@ -18,7 +18,9 @@ create table
 create table
     edwprodhh.edi_835_parser.response_files
 (
-    file_name       varchar
+    response_id     varchar,
+    file_name       varchar,
+    upload_date     date
 )
 ;
 
