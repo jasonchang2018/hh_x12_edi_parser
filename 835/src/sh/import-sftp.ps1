@@ -5,10 +5,6 @@ sftp -P 522 `
 
 DBO6RS9pF18ouiW
 
-sftp> cd 837P/OUT
-sftp> get *.835 "J:/DATA_DIMENSIONS/IN/"
-sftp> exit
-
 
 ####  Export locally from SFTP
 sftp> cd 837P/OUT
