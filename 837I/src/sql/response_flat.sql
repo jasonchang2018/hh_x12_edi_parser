@@ -149,7 +149,7 @@ select      response_id,
             file_date,
             index,
             line_element_837,
-            nth_functional_group
+            nth_functional_group,
             nth_transaction_set,
             hl_index_current,
             hl_index_billing_20,
