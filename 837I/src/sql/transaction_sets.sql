@@ -11,6 +11,7 @@ with filtered as
     with long as
     (
         select      filtered.response_id,
+                    filtered.nth_functional_group,
                     filtered.nth_transaction_set,
 
                     -- flattened.index,
@@ -40,6 +41,7 @@ with filtered as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     TRANSACTION_SET_HEADER,
                     TRANSACTION_SET_ID_CODE,
@@ -52,6 +54,7 @@ with filtered as
     with long as
     (
         select      filtered.response_id,
+                    filtered.nth_functional_group,
                     filtered.nth_transaction_set,
 
                     -- flattened.index,
@@ -79,6 +82,7 @@ with filtered as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     TRANSACTION_SET_TRAILER,
                     TRANSACTION_SEGMENT_COUNT,
@@ -90,6 +94,7 @@ with filtered as
     with long as
     (
         select      filtered.response_id,
+                    filtered.nth_functional_group,
                     filtered.nth_transaction_set,
 
                     -- flattened.index,
@@ -129,6 +134,7 @@ with filtered as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     BEGINNING_OF_HIERARCHICAL_TRANSACTION,
                     HIERARCHICAL_STRUCTURE_CODE,
@@ -144,6 +150,7 @@ with filtered as
     with long as
     (
         select      filtered.response_id,
+                    filtered.nth_functional_group,
                     filtered.nth_transaction_set,
 
                     -- flattened.index,
@@ -185,6 +192,7 @@ with filtered as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     NAME_CODE_SUBMITTER,
                     ENTITY_IDENTIFIER_CODE_SUBMITTER,
@@ -203,6 +211,7 @@ with filtered as
     with long as
     (
         select      filtered.response_id,
+                    filtered.nth_functional_group,
                     filtered.nth_transaction_set,
 
                     -- flattened.index,
@@ -243,6 +252,7 @@ with filtered as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     SUBMITTER_CONTACT_PREFIX,
                     CONTACT_FUNCTION_CODE,
@@ -260,6 +270,7 @@ with filtered as
     with long as
     (
         select      filtered.response_id,
+                    filtered.nth_functional_group,
                     filtered.nth_transaction_set,
 
                     -- flattened.index,
@@ -301,6 +312,7 @@ with filtered as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     NAME_CODE_RECEIVER,
                     ENTITY_IDENTIFIER_CODE_RECEIVER,
@@ -315,6 +327,7 @@ with filtered as
                 )
 )
 select      header.response_id,
+            header.nth_functional_group,
             header.nth_transaction_set,
             header.transaction_set_header,
             header.transaction_set_id_code,
@@ -363,23 +376,28 @@ select      header.response_id,
 from        header_st               as header
             left join
                 trailer_se          as trailer
-                on  header.response_id                   = trailer.response_id
+                on  header.response_id              = trailer.response_id
+                and header.nth_functional_group     = trailer.nth_functional_group
                 and header.nth_transaction_set      = trailer.nth_transaction_set
             left join
                 beginning_bht       as bht
-                on  header.response_id                   = bht.response_id
+                on  header.response_id              = bht.response_id
+                and header.nth_functional_group     = bht.nth_functional_group
                 and header.nth_transaction_set      = bht.nth_transaction_set
             left join
                 submitter_nm41      as nm41
-                on  header.response_id                   = nm41.response_id
+                on  header.response_id              = nm41.response_id
+                and header.nth_functional_group     = nm41.nth_functional_group
                 and header.nth_transaction_set      = nm41.nth_transaction_set
             left join
                 submitter_nm41_per  as nm41_per
-                on  header.response_id                   = nm41_per.response_id
+                on  header.response_id              = nm41_per.response_id
+                and header.nth_functional_group     = nm41_per.nth_functional_group
                 and header.nth_transaction_set      = nm41_per.nth_transaction_set
             left join
                 receiver_nm40       as nm40
-                on  header.response_id                   = nm40.response_id
+                on  header.response_id              = nm40.response_id
+                and header.nth_functional_group     = nm40.nth_functional_group
                 and header.nth_transaction_set      = nm40.nth_transaction_set
 order by    1,2,3
 ;
@@ -395,6 +413,7 @@ insert into
     edwprodhh.edi_837i_parser.transaction_sets
 (
     RESPONSE_ID,
+    NTH_FUNCTIONAL_GROUP,
     NTH_TRANSACTION_SET,
     TRANSACTION_SET_HEADER,
     TRANSACTION_SET_ID_CODE,
@@ -451,6 +470,7 @@ with filtered as
     with long as
     (
         select      filtered.response_id,
+                    filtered.nth_functional_group,
                     filtered.nth_transaction_set,
 
                     -- flattened.index,
@@ -480,6 +500,7 @@ with filtered as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     TRANSACTION_SET_HEADER,
                     TRANSACTION_SET_ID_CODE,
@@ -492,6 +513,7 @@ with filtered as
     with long as
     (
         select      filtered.response_id,
+                    filtered.nth_functional_group,
                     filtered.nth_transaction_set,
 
                     -- flattened.index,
@@ -519,6 +541,7 @@ with filtered as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     TRANSACTION_SET_TRAILER,
                     TRANSACTION_SEGMENT_COUNT,
@@ -530,6 +553,7 @@ with filtered as
     with long as
     (
         select      filtered.response_id,
+                    filtered.nth_functional_group,
                     filtered.nth_transaction_set,
 
                     -- flattened.index,
@@ -569,6 +593,7 @@ with filtered as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     BEGINNING_OF_HIERARCHICAL_TRANSACTION,
                     HIERARCHICAL_STRUCTURE_CODE,
@@ -584,6 +609,7 @@ with filtered as
     with long as
     (
         select      filtered.response_id,
+                    filtered.nth_functional_group,
                     filtered.nth_transaction_set,
 
                     -- flattened.index,
@@ -625,6 +651,7 @@ with filtered as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     NAME_CODE_SUBMITTER,
                     ENTITY_IDENTIFIER_CODE_SUBMITTER,
@@ -643,6 +670,7 @@ with filtered as
     with long as
     (
         select      filtered.response_id,
+                    filtered.nth_functional_group,
                     filtered.nth_transaction_set,
 
                     -- flattened.index,
@@ -683,6 +711,7 @@ with filtered as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     SUBMITTER_CONTACT_PREFIX,
                     CONTACT_FUNCTION_CODE,
@@ -700,6 +729,7 @@ with filtered as
     with long as
     (
         select      filtered.response_id,
+                    filtered.nth_functional_group,
                     filtered.nth_transaction_set,
 
                     -- flattened.index,
@@ -741,6 +771,7 @@ with filtered as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     NAME_CODE_RECEIVER,
                     ENTITY_IDENTIFIER_CODE_RECEIVER,
@@ -755,6 +786,7 @@ with filtered as
                 )
 )
 select      header.response_id,
+            header.nth_functional_group,
             header.nth_transaction_set,
             header.transaction_set_header,
             header.transaction_set_id_code,
@@ -803,23 +835,28 @@ select      header.response_id,
 from        header_st               as header
             left join
                 trailer_se          as trailer
-                on  header.response_id                   = trailer.response_id
+                on  header.response_id              = trailer.response_id
+                and header.nth_functional_group     = trailer.nth_functional_group
                 and header.nth_transaction_set      = trailer.nth_transaction_set
             left join
                 beginning_bht       as bht
-                on  header.response_id                   = bht.response_id
+                on  header.response_id              = bht.response_id
+                and header.nth_functional_group     = bht.nth_functional_group
                 and header.nth_transaction_set      = bht.nth_transaction_set
             left join
                 submitter_nm41      as nm41
-                on  header.response_id                   = nm41.response_id
+                on  header.response_id              = nm41.response_id
+                and header.nth_functional_group     = nm41.nth_functional_group
                 and header.nth_transaction_set      = nm41.nth_transaction_set
             left join
                 submitter_nm41_per  as nm41_per
-                on  header.response_id                   = nm41_per.response_id
+                on  header.response_id              = nm41_per.response_id
+                and header.nth_functional_group     = nm41_per.nth_functional_group
                 and header.nth_transaction_set      = nm41_per.nth_transaction_set
             left join
                 receiver_nm40       as nm40
-                on  header.response_id                   = nm40.response_id
+                on  header.response_id              = nm40.response_id
+                and header.nth_functional_group     = nm40.nth_functional_group
                 and header.nth_transaction_set      = nm40.nth_transaction_set
 order by    1,2,3
 ;

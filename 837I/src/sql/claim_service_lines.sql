@@ -17,6 +17,7 @@ with filtered_lx as
     with long as
     (
         select      filtered_lx.response_id,
+                    filtered_lx.nth_functional_group,
                     filtered_lx.nth_transaction_set,
                     filtered_lx.index,
                     filtered_lx.hl_index_current,
@@ -49,6 +50,7 @@ with filtered_lx as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -66,6 +68,7 @@ with filtered_lx as
     with long as
     (
         select      filtered_lx.response_id,
+                    filtered_lx.nth_functional_group,
                     filtered_lx.nth_transaction_set,
                     filtered_lx.index,
                     filtered_lx.hl_index_current,
@@ -114,6 +117,7 @@ with filtered_lx as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -139,6 +143,7 @@ with filtered_lx as
     with long as
     (
         select      filtered_lx.response_id,
+                    filtered_lx.nth_functional_group,
                     filtered_lx.nth_transaction_set,
                     filtered_lx.index,
                     filtered_lx.hl_index_current,
@@ -179,6 +184,7 @@ with filtered_lx as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -198,6 +204,7 @@ with filtered_lx as
     with long as
     (
         select      filtered_lx.response_id,
+                    filtered_lx.nth_functional_group,
                     filtered_lx.nth_transaction_set,
                     filtered_lx.index,
                     filtered_lx.hl_index_current,
@@ -238,6 +245,7 @@ with filtered_lx as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -257,6 +265,7 @@ with filtered_lx as
     with long as
     (
         select      filtered_lx.response_id,
+                    filtered_lx.nth_functional_group,
                     filtered_lx.nth_transaction_set,
                     filtered_lx.index,
                     filtered_lx.hl_index_current,
@@ -297,6 +306,7 @@ with filtered_lx as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -316,6 +326,7 @@ with filtered_lx as
     with long as
     (
         select      filtered_lx.response_id,
+                    filtered_lx.nth_functional_group,
                     filtered_lx.nth_transaction_set,
                     filtered_lx.index,
                     filtered_lx.hl_index_current,
@@ -354,6 +365,7 @@ with filtered_lx as
                         )
                     )   as pvt (
                         RESPONSE_ID,
+                        NTH_FUNCTIONAL_GROUP,
                         NTH_TRANSACTION_SET,
                         INDEX,
                         HL_INDEX_CURRENT,
@@ -369,6 +381,7 @@ with filtered_lx as
                     )
     )
     select      response_id,
+                nth_functional_group,
                 nth_transaction_set,
                 claim_index,
                 lx_index,
@@ -380,10 +393,11 @@ with filtered_lx as
                     )
                 )   as lx_ref_array
     from        pivoted
-    group by    1,2,3,4
-    order by    1,2,3,4
+    group by    1,2,3,4,5
+    order by    1,2,3,4,5
 )
 select      header.response_id,
+            header.nth_functional_group,
             header.nth_transaction_set,
             header.index,
             header.hl_index_current,
@@ -422,30 +436,35 @@ from        servline_lx_header as header
             left join
                 servline_lx_sv2 as sv2
                 on  header.response_id          = sv2.response_id
+                and header.nth_functional_group = sv2.nth_functional_group
                 and header.nth_transaction_set  = sv2.nth_transaction_set
                 and header.claim_index          = sv2.claim_index
                 and header.lx_index             = sv2.lx_index
             left join
                 servline_lx_dtp_471 as dtp_471
                 on  header.response_id          = dtp_471.response_id
+                and header.nth_functional_group = dtp_471.nth_functional_group
                 and header.nth_transaction_set  = dtp_471.nth_transaction_set
                 and header.claim_index          = dtp_471.claim_index
                 and header.lx_index             = dtp_471.lx_index
             left join
                 servline_lx_dtp_472 as dtp_472
                 on  header.response_id          = dtp_472.response_id
+                and header.nth_functional_group = dtp_472.nth_functional_group
                 and header.nth_transaction_set  = dtp_472.nth_transaction_set
                 and header.claim_index          = dtp_472.claim_index
                 and header.lx_index             = dtp_472.lx_index
             left join
                 servline_lx_dtp_573 as dtp_573
                 on  header.response_id          = dtp_573.response_id
+                and header.nth_functional_group = dtp_573.nth_functional_group
                 and header.nth_transaction_set  = dtp_573.nth_transaction_set
                 and header.claim_index          = dtp_573.claim_index
                 and header.lx_index             = dtp_573.lx_index
             left join
                 servline_lx_ref as ref
                 on  header.response_id          = ref.response_id
+                and header.nth_functional_group = ref.nth_functional_group
                 and header.nth_transaction_set  = ref.nth_transaction_set
                 and header.claim_index          = ref.claim_index
                 and header.lx_index             = ref.lx_index
@@ -464,6 +483,7 @@ insert into
     edwprodhh.edi_837i_parser.claim_service_lines
 (
     RESPONSE_ID,
+    NTH_FUNCTIONAL_GROUP,
     NTH_TRANSACTION_SET,
     INDEX,
     HL_INDEX_CURRENT,
@@ -504,12 +524,14 @@ with filtered_lx as
     from        edwprodhh.edi_837i_parser.response_flat
     where       claim_index is not null --0 Pre-Filter
                 and lx_index is not null
+                and response_id not in (select response_id from edwprodhh.edi_837i_parser.claim_service_lines)
 )
 , servline_lx_header as
 (
     with long as
     (
         select      filtered_lx.response_id,
+                    filtered_lx.nth_functional_group,
                     filtered_lx.nth_transaction_set,
                     filtered_lx.index,
                     filtered_lx.hl_index_current,
@@ -542,6 +564,7 @@ with filtered_lx as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -559,6 +582,7 @@ with filtered_lx as
     with long as
     (
         select      filtered_lx.response_id,
+                    filtered_lx.nth_functional_group,
                     filtered_lx.nth_transaction_set,
                     filtered_lx.index,
                     filtered_lx.hl_index_current,
@@ -607,6 +631,7 @@ with filtered_lx as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -632,6 +657,7 @@ with filtered_lx as
     with long as
     (
         select      filtered_lx.response_id,
+                    filtered_lx.nth_functional_group,
                     filtered_lx.nth_transaction_set,
                     filtered_lx.index,
                     filtered_lx.hl_index_current,
@@ -672,6 +698,7 @@ with filtered_lx as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -691,6 +718,7 @@ with filtered_lx as
     with long as
     (
         select      filtered_lx.response_id,
+                    filtered_lx.nth_functional_group,
                     filtered_lx.nth_transaction_set,
                     filtered_lx.index,
                     filtered_lx.hl_index_current,
@@ -731,6 +759,7 @@ with filtered_lx as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -750,6 +779,7 @@ with filtered_lx as
     with long as
     (
         select      filtered_lx.response_id,
+                    filtered_lx.nth_functional_group,
                     filtered_lx.nth_transaction_set,
                     filtered_lx.index,
                     filtered_lx.hl_index_current,
@@ -790,6 +820,7 @@ with filtered_lx as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -809,6 +840,7 @@ with filtered_lx as
     with long as
     (
         select      filtered_lx.response_id,
+                    filtered_lx.nth_functional_group,
                     filtered_lx.nth_transaction_set,
                     filtered_lx.index,
                     filtered_lx.hl_index_current,
@@ -847,6 +879,7 @@ with filtered_lx as
                         )
                     )   as pvt (
                         RESPONSE_ID,
+                        NTH_FUNCTIONAL_GROUP,
                         NTH_TRANSACTION_SET,
                         INDEX,
                         HL_INDEX_CURRENT,
@@ -862,6 +895,7 @@ with filtered_lx as
                     )
     )
     select      response_id,
+                nth_functional_group,
                 nth_transaction_set,
                 claim_index,
                 lx_index,
@@ -873,10 +907,11 @@ with filtered_lx as
                     )
                 )   as lx_ref_array
     from        pivoted
-    group by    1,2,3,4
-    order by    1,2,3,4
+    group by    1,2,3,4,5
+    order by    1,2,3,4,5
 )
 select      header.response_id,
+            header.nth_functional_group,
             header.nth_transaction_set,
             header.index,
             header.hl_index_current,
@@ -915,30 +950,35 @@ from        servline_lx_header as header
             left join
                 servline_lx_sv2 as sv2
                 on  header.response_id          = sv2.response_id
+                and header.nth_functional_group = sv2.nth_functional_group
                 and header.nth_transaction_set  = sv2.nth_transaction_set
                 and header.claim_index          = sv2.claim_index
                 and header.lx_index             = sv2.lx_index
             left join
                 servline_lx_dtp_471 as dtp_471
                 on  header.response_id          = dtp_471.response_id
+                and header.nth_functional_group = dtp_471.nth_functional_group
                 and header.nth_transaction_set  = dtp_471.nth_transaction_set
                 and header.claim_index          = dtp_471.claim_index
                 and header.lx_index             = dtp_471.lx_index
             left join
                 servline_lx_dtp_472 as dtp_472
                 on  header.response_id          = dtp_472.response_id
+                and header.nth_functional_group = dtp_472.nth_functional_group
                 and header.nth_transaction_set  = dtp_472.nth_transaction_set
                 and header.claim_index          = dtp_472.claim_index
                 and header.lx_index             = dtp_472.lx_index
             left join
                 servline_lx_dtp_573 as dtp_573
                 on  header.response_id          = dtp_573.response_id
+                and header.nth_functional_group = dtp_573.nth_functional_group
                 and header.nth_transaction_set  = dtp_573.nth_transaction_set
                 and header.claim_index          = dtp_573.claim_index
                 and header.lx_index             = dtp_573.lx_index
             left join
                 servline_lx_ref as ref
                 on  header.response_id          = ref.response_id
+                and header.nth_functional_group = ref.nth_functional_group
                 and header.nth_transaction_set  = ref.nth_transaction_set
                 and header.claim_index          = ref.claim_index
                 and header.lx_index             = ref.lx_index

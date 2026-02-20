@@ -15,6 +15,7 @@ with filtered_hl as
     with long as
     (
         select      filtered_hl.response_id,
+                    filtered_hl.nth_functional_group,
                     filtered_hl.nth_transaction_set,
                     filtered_hl.index,
                     filtered_hl.hl_index_current,
@@ -51,6 +52,7 @@ with filtered_hl as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -69,6 +71,7 @@ with filtered_hl as
     with long as
     (
         select      filtered_hl.response_id,
+                    filtered_hl.nth_functional_group,
                     filtered_hl.nth_transaction_set,
                     filtered_hl.index,
                     filtered_hl.hl_index_current,
@@ -113,6 +116,7 @@ with filtered_hl as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -135,6 +139,7 @@ with filtered_hl as
     with long as
     (
         select      filtered_hl.response_id,
+                    filtered_hl.nth_functional_group,
                     filtered_hl.nth_transaction_set,
                     filtered_hl.index,
                     filtered_hl.hl_index_current,
@@ -181,6 +186,7 @@ with filtered_hl as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -204,6 +210,7 @@ with filtered_hl as
     with long as
     (
         select      filtered_hl.response_id,
+                    filtered_hl.nth_functional_group,
                     filtered_hl.nth_transaction_set,
                     filtered_hl.index,
                     filtered_hl.hl_index_current,
@@ -237,6 +244,7 @@ with filtered_hl as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -253,6 +261,7 @@ with filtered_hl as
     with long as
     (
         select      filtered_hl.response_id,
+                    filtered_hl.nth_functional_group,
                     filtered_hl.nth_transaction_set,
                     filtered_hl.index,
                     filtered_hl.hl_index_current,
@@ -294,6 +303,7 @@ with filtered_hl as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -314,6 +324,7 @@ with filtered_hl as
     with long as
     (
         select      filtered_hl.response_id,
+                    filtered_hl.nth_functional_group,
                     filtered_hl.nth_transaction_set,
                     filtered_hl.index,
                     filtered_hl.hl_index_current,
@@ -368,6 +379,7 @@ with filtered_hl as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -389,6 +401,7 @@ with filtered_hl as
                 )
 )
 select      header.response_id,
+            header.nth_functional_group,
             header.nth_transaction_set,
             header.index,
             header.hl_index_current,
@@ -446,26 +459,31 @@ from        patient_hl      as header
             left join
                 patient_pat     as pat
                 on  header.response_id          = pat.response_id
+                and header.nth_functional_group = pat.nth_functional_group
                 and header.nth_transaction_set  = pat.nth_transaction_set
                 and header.hl_index_patient_23  = pat.hl_index_patient_23
             left join
                 patient_nmQC    as nmQC
                 on  header.response_id          = nmQC.response_id
+                and header.nth_functional_group = nmQC.nth_functional_group
                 and header.nth_transaction_set  = nmQC.nth_transaction_set
                 and header.hl_index_patient_23  = nmQC.hl_index_patient_23
             left join
                 patient_n3      as n3
                 on  header.response_id          = n3.response_id
+                and header.nth_functional_group = n3.nth_functional_group
                 and header.nth_transaction_set  = n3.nth_transaction_set
                 and header.hl_index_patient_23  = n3.hl_index_patient_23
             left join
                 patient_n4      as n4
                 on  header.response_id          = n4.response_id
+                and header.nth_functional_group = n4.nth_functional_group
                 and header.nth_transaction_set  = n4.nth_transaction_set
                 and header.hl_index_patient_23  = n4.hl_index_patient_23
             left join
                 patient_dmg     as dmg
                 on  header.response_id          = dmg.response_id
+                and header.nth_functional_group = dmg.nth_functional_group
                 and header.nth_transaction_set  = dmg.nth_transaction_set
                 and header.hl_index_patient_23  = dmg.hl_index_patient_23
                 
@@ -483,6 +501,7 @@ insert into
     edwprodhh.edi_837i_parser.hl_patients
 (
     RESPONSE_ID,
+    NTH_FUNCTIONAL_GROUP,
     NTH_TRANSACTION_SET,
     INDEX,
     HL_INDEX_CURRENT,
@@ -551,6 +570,7 @@ with filtered_hl as
     with long as
     (
         select      filtered_hl.response_id,
+                    filtered_hl.nth_functional_group,
                     filtered_hl.nth_transaction_set,
                     filtered_hl.index,
                     filtered_hl.hl_index_current,
@@ -587,6 +607,7 @@ with filtered_hl as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -605,6 +626,7 @@ with filtered_hl as
     with long as
     (
         select      filtered_hl.response_id,
+                    filtered_hl.nth_functional_group,
                     filtered_hl.nth_transaction_set,
                     filtered_hl.index,
                     filtered_hl.hl_index_current,
@@ -649,6 +671,7 @@ with filtered_hl as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -671,6 +694,7 @@ with filtered_hl as
     with long as
     (
         select      filtered_hl.response_id,
+                    filtered_hl.nth_functional_group,
                     filtered_hl.nth_transaction_set,
                     filtered_hl.index,
                     filtered_hl.hl_index_current,
@@ -717,6 +741,7 @@ with filtered_hl as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -740,6 +765,7 @@ with filtered_hl as
     with long as
     (
         select      filtered_hl.response_id,
+                    filtered_hl.nth_functional_group,
                     filtered_hl.nth_transaction_set,
                     filtered_hl.index,
                     filtered_hl.hl_index_current,
@@ -773,6 +799,7 @@ with filtered_hl as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -789,6 +816,7 @@ with filtered_hl as
     with long as
     (
         select      filtered_hl.response_id,
+                    filtered_hl.nth_functional_group,
                     filtered_hl.nth_transaction_set,
                     filtered_hl.index,
                     filtered_hl.hl_index_current,
@@ -830,6 +858,7 @@ with filtered_hl as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -850,6 +879,7 @@ with filtered_hl as
     with long as
     (
         select      filtered_hl.response_id,
+                    filtered_hl.nth_functional_group,
                     filtered_hl.nth_transaction_set,
                     filtered_hl.index,
                     filtered_hl.hl_index_current,
@@ -904,6 +934,7 @@ with filtered_hl as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -925,6 +956,7 @@ with filtered_hl as
                 )
 )
 select      header.response_id,
+            header.nth_functional_group,
             header.nth_transaction_set,
             header.index,
             header.hl_index_current,
@@ -982,26 +1014,31 @@ from        patient_hl      as header
             left join
                 patient_pat     as pat
                 on  header.response_id          = pat.response_id
+                and header.nth_functional_group = pat.nth_functional_group
                 and header.nth_transaction_set  = pat.nth_transaction_set
                 and header.hl_index_patient_23  = pat.hl_index_patient_23
             left join
                 patient_nmQC    as nmQC
                 on  header.response_id          = nmQC.response_id
+                and header.nth_functional_group = nmQC.nth_functional_group
                 and header.nth_transaction_set  = nmQC.nth_transaction_set
                 and header.hl_index_patient_23  = nmQC.hl_index_patient_23
             left join
                 patient_n3      as n3
                 on  header.response_id          = n3.response_id
+                and header.nth_functional_group = n3.nth_functional_group
                 and header.nth_transaction_set  = n3.nth_transaction_set
                 and header.hl_index_patient_23  = n3.hl_index_patient_23
             left join
                 patient_n4      as n4
                 on  header.response_id          = n4.response_id
+                and header.nth_functional_group = n4.nth_functional_group
                 and header.nth_transaction_set  = n4.nth_transaction_set
                 and header.hl_index_patient_23  = n4.hl_index_patient_23
             left join
                 patient_dmg     as dmg
                 on  header.response_id          = dmg.response_id
+                and header.nth_functional_group = dmg.nth_functional_group
                 and header.nth_transaction_set  = dmg.nth_transaction_set
                 and header.hl_index_patient_23  = dmg.hl_index_patient_23
                 

@@ -4,7 +4,7 @@ as
 with flattened as
 (
     select      response_id,
-                to_date(regexp_substr(file_name, '835_(\\d{8})', 1, 1, 'e'), 'yyyymmdd')                    as file_date,
+                to_date(regexp_substr(file_name, '835_(\\d{8})', 1, 1, 'e'), 'yyyymmdd')                    as file_date, --*this will need to update to be conditional on pl_group
                 line_number                                                                                 as index,
                 case    when    regexp_like(response_body, '^(ISA|GS)\\*.*')
                         then    response_body

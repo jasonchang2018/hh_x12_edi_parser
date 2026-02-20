@@ -15,6 +15,7 @@ with filtered_hl as
     with long as
     (
         select      filtered_hl.response_id,
+                    filtered_hl.nth_functional_group,
                     filtered_hl.nth_transaction_set,
                     filtered_hl.index,
                     filtered_hl.hl_index_current,
@@ -51,6 +52,7 @@ with filtered_hl as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -69,6 +71,7 @@ with filtered_hl as
     with long as
     (
         select      filtered_hl.response_id,
+                    filtered_hl.nth_functional_group,
                     filtered_hl.nth_transaction_set,
                     filtered_hl.index,
                     filtered_hl.hl_index_current,
@@ -103,6 +106,7 @@ with filtered_hl as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -120,6 +124,7 @@ with filtered_hl as
     with long as
     (
         select      filtered_hl.response_id,
+                    filtered_hl.nth_functional_group,
                     filtered_hl.nth_transaction_set,
                     filtered_hl.index,
                     filtered_hl.hl_index_current,
@@ -166,6 +171,7 @@ with filtered_hl as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -189,6 +195,7 @@ with filtered_hl as
     with long as
     (
         select      filtered_hl.response_id,
+                    filtered_hl.nth_functional_group,
                     filtered_hl.nth_transaction_set,
                     filtered_hl.index,
                     filtered_hl.hl_index_current,
@@ -222,6 +229,7 @@ with filtered_hl as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -238,6 +246,7 @@ with filtered_hl as
     with long as
     (
         select      filtered_hl.response_id,
+                    filtered_hl.nth_functional_group,
                     filtered_hl.nth_transaction_set,
                     filtered_hl.index,
                     filtered_hl.hl_index_current,
@@ -279,6 +288,7 @@ with filtered_hl as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -299,6 +309,7 @@ with filtered_hl as
     with long as
     (
         select      filtered_hl.response_id,
+                    filtered_hl.nth_functional_group,
                     filtered_hl.nth_transaction_set,
                     filtered_hl.index,
                     filtered_hl.hl_index_current,
@@ -333,6 +344,7 @@ with filtered_hl as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -350,6 +362,7 @@ with filtered_hl as
     with long as
     (
         select      filtered_hl.response_id,
+                    filtered_hl.nth_functional_group,
                     filtered_hl.nth_transaction_set,
                     filtered_hl.index,
                     filtered_hl.hl_index_current,
@@ -394,6 +407,7 @@ with filtered_hl as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -416,6 +430,7 @@ with filtered_hl as
     with long as
     (
         select      filtered_hl.response_id,
+                    filtered_hl.nth_functional_group,
                     filtered_hl.nth_transaction_set,
                     filtered_hl.index,
                     filtered_hl.hl_index_current,
@@ -462,6 +477,7 @@ with filtered_hl as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -485,6 +501,7 @@ with filtered_hl as
     with long as
     (
         select      filtered_hl.response_id,
+                    filtered_hl.nth_functional_group,
                     filtered_hl.nth_transaction_set,
                     filtered_hl.index,
                     filtered_hl.hl_index_current,
@@ -518,6 +535,7 @@ with filtered_hl as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -534,6 +552,7 @@ with filtered_hl as
     with long as
     (
         select      filtered_hl.response_id,
+                    filtered_hl.nth_functional_group,
                     filtered_hl.nth_transaction_set,
                     filtered_hl.index,
                     filtered_hl.hl_index_current,
@@ -575,6 +594,7 @@ with filtered_hl as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -591,6 +611,7 @@ with filtered_hl as
                 )
 )
 select      header.response_id,
+            header.nth_functional_group,
             header.nth_transaction_set,
             header.index,
             header.hl_index_current,
@@ -664,46 +685,55 @@ from        provider_hl         as header
             left join
                 provider_prv        as prv
                 on  header.response_id          = prv.response_id
+                and header.nth_functional_group = prv.nth_functional_group
                 and header.nth_transaction_set  = prv.nth_transaction_set
                 and header.hl_index_billing_20  = prv.hl_index_billing_20
             left join
                 provider_nm85       as nm85
                 on  header.response_id          = nm85.response_id
+                and header.nth_functional_group = nm85.nth_functional_group
                 and header.nth_transaction_set  = nm85.nth_transaction_set
                 and header.hl_index_billing_20  = nm85.hl_index_billing_20
             left join
                 provider_n3         as n3
                 on  header.response_id          = n3.response_id
+                and header.nth_functional_group = n3.nth_functional_group
                 and header.nth_transaction_set  = n3.nth_transaction_set
                 and header.hl_index_billing_20  = n3.hl_index_billing_20
             left join
                 provider_n4         as n4
                 on  header.response_id          = n4.response_id
+                and header.nth_functional_group = n4.nth_functional_group
                 and header.nth_transaction_set  = n4.nth_transaction_set
                 and header.hl_index_billing_20  = n4.hl_index_billing_20
             left join
                 provider_ref        as ref
                 on  header.response_id          = ref.response_id
+                and header.nth_functional_group = ref.nth_functional_group
                 and header.nth_transaction_set  = ref.nth_transaction_set
                 and header.hl_index_billing_20  = ref.hl_index_billing_20
             left join
                 provider_per        as per
                 on  header.response_id          = per.response_id
+                and header.nth_functional_group = per.nth_functional_group
                 and header.nth_transaction_set  = per.nth_transaction_set
                 and header.hl_index_billing_20  = per.hl_index_billing_20
             left join
                 provider_payto_nm87 as payto_nm87
                 on  header.response_id          = payto_nm87.response_id
+                and header.nth_functional_group = payto_nm87.nth_functional_group
                 and header.nth_transaction_set  = payto_nm87.nth_transaction_set
                 and header.hl_index_billing_20  = payto_nm87.hl_index_billing_20
             left join
                 provider_payto_n3   as payto_n3
                 on  header.response_id          = payto_n3.response_id
+                and header.nth_functional_group = payto_n3.nth_functional_group
                 and header.nth_transaction_set  = payto_n3.nth_transaction_set
                 and header.hl_index_billing_20  = payto_n3.hl_index_billing_20
             left join
                 provider_payto_n4   as payto_n4
                 on  header.response_id          = payto_n4.response_id
+                and header.nth_functional_group = payto_n4.nth_functional_group
                 and header.nth_transaction_set  = payto_n4.nth_transaction_set
                 and header.hl_index_billing_20  = payto_n4.hl_index_billing_20
 
@@ -721,6 +751,7 @@ insert into
     edwprodhh.edi_837i_parser.hl_billing_providers
 (
     RESPONSE_ID,
+    NTH_FUNCTIONAL_GROUP,
     NTH_TRANSACTION_SET,
     INDEX,
     HL_INDEX_CURRENT,
@@ -805,6 +836,7 @@ with filtered_hl as
     with long as
     (
         select      filtered_hl.response_id,
+                    filtered_hl.nth_functional_group,
                     filtered_hl.nth_transaction_set,
                     filtered_hl.index,
                     filtered_hl.hl_index_current,
@@ -841,6 +873,7 @@ with filtered_hl as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -859,6 +892,7 @@ with filtered_hl as
     with long as
     (
         select      filtered_hl.response_id,
+                    filtered_hl.nth_functional_group,
                     filtered_hl.nth_transaction_set,
                     filtered_hl.index,
                     filtered_hl.hl_index_current,
@@ -893,6 +927,7 @@ with filtered_hl as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -910,6 +945,7 @@ with filtered_hl as
     with long as
     (
         select      filtered_hl.response_id,
+                    filtered_hl.nth_functional_group,
                     filtered_hl.nth_transaction_set,
                     filtered_hl.index,
                     filtered_hl.hl_index_current,
@@ -956,6 +992,7 @@ with filtered_hl as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -979,6 +1016,7 @@ with filtered_hl as
     with long as
     (
         select      filtered_hl.response_id,
+                    filtered_hl.nth_functional_group,
                     filtered_hl.nth_transaction_set,
                     filtered_hl.index,
                     filtered_hl.hl_index_current,
@@ -1012,6 +1050,7 @@ with filtered_hl as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -1028,6 +1067,7 @@ with filtered_hl as
     with long as
     (
         select      filtered_hl.response_id,
+                    filtered_hl.nth_functional_group,
                     filtered_hl.nth_transaction_set,
                     filtered_hl.index,
                     filtered_hl.hl_index_current,
@@ -1069,6 +1109,7 @@ with filtered_hl as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -1089,6 +1130,7 @@ with filtered_hl as
     with long as
     (
         select      filtered_hl.response_id,
+                    filtered_hl.nth_functional_group,
                     filtered_hl.nth_transaction_set,
                     filtered_hl.index,
                     filtered_hl.hl_index_current,
@@ -1123,6 +1165,7 @@ with filtered_hl as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -1140,6 +1183,7 @@ with filtered_hl as
     with long as
     (
         select      filtered_hl.response_id,
+                    filtered_hl.nth_functional_group,
                     filtered_hl.nth_transaction_set,
                     filtered_hl.index,
                     filtered_hl.hl_index_current,
@@ -1184,6 +1228,7 @@ with filtered_hl as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -1206,6 +1251,7 @@ with filtered_hl as
     with long as
     (
         select      filtered_hl.response_id,
+                    filtered_hl.nth_functional_group,
                     filtered_hl.nth_transaction_set,
                     filtered_hl.index,
                     filtered_hl.hl_index_current,
@@ -1252,6 +1298,7 @@ with filtered_hl as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -1275,6 +1322,7 @@ with filtered_hl as
     with long as
     (
         select      filtered_hl.response_id,
+                    filtered_hl.nth_functional_group,
                     filtered_hl.nth_transaction_set,
                     filtered_hl.index,
                     filtered_hl.hl_index_current,
@@ -1308,6 +1356,7 @@ with filtered_hl as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -1324,6 +1373,7 @@ with filtered_hl as
     with long as
     (
         select      filtered_hl.response_id,
+                    filtered_hl.nth_functional_group,
                     filtered_hl.nth_transaction_set,
                     filtered_hl.index,
                     filtered_hl.hl_index_current,
@@ -1365,6 +1415,7 @@ with filtered_hl as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -1381,6 +1432,7 @@ with filtered_hl as
                 )
 )
 select      header.response_id,
+            header.nth_functional_group,
             header.nth_transaction_set,
             header.index,
             header.hl_index_current,
@@ -1454,46 +1506,55 @@ from        provider_hl         as header
             left join
                 provider_prv        as prv
                 on  header.response_id          = prv.response_id
+                and header.nth_functional_group = prv.nth_functional_group
                 and header.nth_transaction_set  = prv.nth_transaction_set
                 and header.hl_index_billing_20  = prv.hl_index_billing_20
             left join
                 provider_nm85       as nm85
                 on  header.response_id          = nm85.response_id
+                and header.nth_functional_group = nm85.nth_functional_group
                 and header.nth_transaction_set  = nm85.nth_transaction_set
                 and header.hl_index_billing_20  = nm85.hl_index_billing_20
             left join
                 provider_n3         as n3
                 on  header.response_id          = n3.response_id
+                and header.nth_functional_group = n3.nth_functional_group
                 and header.nth_transaction_set  = n3.nth_transaction_set
                 and header.hl_index_billing_20  = n3.hl_index_billing_20
             left join
                 provider_n4         as n4
                 on  header.response_id          = n4.response_id
+                and header.nth_functional_group = n4.nth_functional_group
                 and header.nth_transaction_set  = n4.nth_transaction_set
                 and header.hl_index_billing_20  = n4.hl_index_billing_20
             left join
                 provider_ref        as ref
                 on  header.response_id          = ref.response_id
+                and header.nth_functional_group = ref.nth_functional_group
                 and header.nth_transaction_set  = ref.nth_transaction_set
                 and header.hl_index_billing_20  = ref.hl_index_billing_20
             left join
                 provider_per        as per
                 on  header.response_id          = per.response_id
+                and header.nth_functional_group = per.nth_functional_group
                 and header.nth_transaction_set  = per.nth_transaction_set
                 and header.hl_index_billing_20  = per.hl_index_billing_20
             left join
                 provider_payto_nm87 as payto_nm87
                 on  header.response_id          = payto_nm87.response_id
+                and header.nth_functional_group = payto_nm87.nth_functional_group
                 and header.nth_transaction_set  = payto_nm87.nth_transaction_set
                 and header.hl_index_billing_20  = payto_nm87.hl_index_billing_20
             left join
                 provider_payto_n3   as payto_n3
                 on  header.response_id          = payto_n3.response_id
+                and header.nth_functional_group = payto_n3.nth_functional_group
                 and header.nth_transaction_set  = payto_n3.nth_transaction_set
                 and header.hl_index_billing_20  = payto_n3.hl_index_billing_20
             left join
                 provider_payto_n4   as payto_n4
                 on  header.response_id          = payto_n4.response_id
+                and header.nth_functional_group = payto_n4.nth_functional_group
                 and header.nth_transaction_set  = payto_n4.nth_transaction_set
                 and header.hl_index_billing_20  = payto_n4.hl_index_billing_20
 

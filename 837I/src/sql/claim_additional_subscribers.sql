@@ -14,6 +14,7 @@ with filtered_clm_sbr as
     with long as
     (
         select      filtered_clm_sbr.response_id,
+                    filtered_clm_sbr.nth_functional_group,
                     filtered_clm_sbr.nth_transaction_set,
                     filtered_clm_sbr.index,
                     filtered_clm_sbr.hl_index_current,
@@ -62,6 +63,7 @@ with filtered_clm_sbr as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -87,6 +89,7 @@ with filtered_clm_sbr as
     with long as
     (
         select      filtered_clm_sbr.response_id,
+                    filtered_clm_sbr.nth_functional_group,
                     filtered_clm_sbr.nth_transaction_set,
                     filtered_clm_sbr.index,
                     filtered_clm_sbr.hl_index_current,
@@ -157,6 +160,7 @@ with filtered_clm_sbr as
                         )
                     )   as pvt (
                         RESPONSE_ID,
+                        NTH_FUNCTIONAL_GROUP,
                         NTH_TRANSACTION_SET,
                         INDEX,
                         HL_INDEX_CURRENT,
@@ -190,6 +194,7 @@ with filtered_clm_sbr as
     , unpivoted as
     (
         select      response_id,
+                    nth_functional_group,
                     nth_transaction_set,
                     index,
                     hl_index_current,
@@ -227,6 +232,7 @@ with filtered_clm_sbr as
                     )   as unpvt
     )
     select      response_id,
+                nth_functional_group,
                 nth_transaction_set,
                 claim_index,
                 other_sbr_index,
@@ -249,6 +255,7 @@ with filtered_clm_sbr as
                     )
                 )   as pvt (
                     response_id,
+                    nth_functional_group,
                     nth_transaction_set,
                     index,
                     hl_index_current,
@@ -268,14 +275,15 @@ with filtered_clm_sbr as
                     and adj_amount is null
                     and adj_quantity is null
                 )
-    group by    1,2,3,4
-    order by    1,2,3,4
+    group by    1,2,3,4,5
+    order by    1,2,3,4,5
 )
 , claim_sbr_amt as
 (
     with long as
     (
         select      filtered_clm_sbr.response_id,
+                    filtered_clm_sbr.nth_functional_group,
                     filtered_clm_sbr.nth_transaction_set,
                     filtered_clm_sbr.index,
                     filtered_clm_sbr.hl_index_current,
@@ -314,6 +322,7 @@ with filtered_clm_sbr as
                         )
                     )   as pvt (
                         RESPONSE_ID,
+                        NTH_FUNCTIONAL_GROUP,
                         NTH_TRANSACTION_SET,
                         INDEX,
                         HL_INDEX_CURRENT,
@@ -329,6 +338,7 @@ with filtered_clm_sbr as
                     )
     )
     select      response_id,
+                nth_functional_group,
                 nth_transaction_set,
                 claim_index,
                 other_sbr_index,
@@ -340,14 +350,15 @@ with filtered_clm_sbr as
                     )
                 )   as amt_adj_array
     from        pivoted
-    group by    1,2,3,4
-    order by    1,2,3,4
+    group by    1,2,3,4,5
+    order by    1,2,3,4,5
 )
 , claim_sbr_oi as
 (
     with long as
     (
         select      filtered_clm_sbr.response_id,
+                    filtered_clm_sbr.nth_functional_group,
                     filtered_clm_sbr.nth_transaction_set,
                     filtered_clm_sbr.index,
                     filtered_clm_sbr.hl_index_current,
@@ -390,6 +401,7 @@ with filtered_clm_sbr as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -412,6 +424,7 @@ with filtered_clm_sbr as
     with long as
     (
         select      filtered_clm_sbr.response_id,
+                    filtered_clm_sbr.nth_functional_group,
                     filtered_clm_sbr.nth_transaction_set,
                     filtered_clm_sbr.index,
                     filtered_clm_sbr.hl_index_current,
@@ -460,6 +473,7 @@ with filtered_clm_sbr as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -485,6 +499,7 @@ with filtered_clm_sbr as
     with long as
     (
         select      filtered_clm_sbr.response_id,
+                    filtered_clm_sbr.nth_functional_group,
                     filtered_clm_sbr.nth_transaction_set,
                     filtered_clm_sbr.index,
                     filtered_clm_sbr.hl_index_current,
@@ -520,6 +535,7 @@ with filtered_clm_sbr as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -538,6 +554,7 @@ with filtered_clm_sbr as
     with long as
     (
         select      filtered_clm_sbr.response_id,
+                    filtered_clm_sbr.nth_functional_group,
                     filtered_clm_sbr.nth_transaction_set,
                     filtered_clm_sbr.index,
                     filtered_clm_sbr.hl_index_current,
@@ -581,6 +598,7 @@ with filtered_clm_sbr as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -603,6 +621,7 @@ with filtered_clm_sbr as
     with long as
     (
         select      filtered_clm_sbr.response_id,
+                    filtered_clm_sbr.nth_functional_group,
                     filtered_clm_sbr.nth_transaction_set,
                     filtered_clm_sbr.index,
                     filtered_clm_sbr.hl_index_current,
@@ -651,6 +670,7 @@ with filtered_clm_sbr as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -676,6 +696,7 @@ with filtered_clm_sbr as
     with long as
     (
         select      filtered_clm_sbr.response_id,
+                    filtered_clm_sbr.nth_functional_group,
                     filtered_clm_sbr.nth_transaction_set,
                     filtered_clm_sbr.index,
                     filtered_clm_sbr.hl_index_current,
@@ -711,6 +732,7 @@ with filtered_clm_sbr as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -729,6 +751,7 @@ with filtered_clm_sbr as
     with long as
     (
         select      filtered_clm_sbr.response_id,
+                    filtered_clm_sbr.nth_functional_group,
                     filtered_clm_sbr.nth_transaction_set,
                     filtered_clm_sbr.index,
                     filtered_clm_sbr.hl_index_current,
@@ -772,6 +795,7 @@ with filtered_clm_sbr as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -790,6 +814,7 @@ with filtered_clm_sbr as
                 )
 )
 select      header.response_id,
+            header.nth_functional_group,
             header.nth_transaction_set,
             header.index,
             header.hl_index_current,
@@ -863,42 +888,49 @@ from        claim_sbr_header    as header
             left join
                 claim_sbr_oi        as oi
                 on  header.response_id          = oi.response_id
+                and header.nth_functional_group = oi.nth_functional_group
                 and header.nth_transaction_set  = oi.nth_transaction_set
                 and header.claim_index          = oi.claim_index
                 and header.other_sbr_index      = oi.other_sbr_index
             left join
                 claim_sbr_nmIL      as nmIL
                 on  header.response_id          = nmIL.response_id
+                and header.nth_functional_group = nmIL.nth_functional_group
                 and header.nth_transaction_set  = nmIL.nth_transaction_set
                 and header.claim_index          = nmIL.claim_index
                 and header.other_sbr_index      = nmIL.other_sbr_index
             left join
                 claim_sbr_nmIL_n3   as nmIL_n3
                 on  header.response_id          = nmIL_n3.response_id
+                and header.nth_functional_group = nmIL_n3.nth_functional_group
                 and header.nth_transaction_set  = nmIL_n3.nth_transaction_set
                 and header.claim_index          = nmIL_n3.claim_index
                 and header.other_sbr_index      = nmIL_n3.other_sbr_index
             left join
                 claim_sbr_nmIL_n4   as nmIL_n4
                 on  header.response_id          = nmIL_n4.response_id
+                and header.nth_functional_group = nmIL_n4.nth_functional_group
                 and header.nth_transaction_set  = nmIL_n4.nth_transaction_set
                 and header.claim_index          = nmIL_n4.claim_index
                 and header.other_sbr_index      = nmIL_n4.other_sbr_index
             left join
                 claim_sbr_nmPR      as nmPR
                 on  header.response_id          = nmPR.response_id
+                and header.nth_functional_group = nmPR.nth_functional_group
                 and header.nth_transaction_set  = nmPR.nth_transaction_set
                 and header.claim_index          = nmPR.claim_index
                 and header.other_sbr_index      = nmPR.other_sbr_index
             left join
                 claim_sbr_nmPR_n3   as nmPR_n3
                 on  header.response_id          = nmPR_n3.response_id
+                and header.nth_functional_group = nmPR_n3.nth_functional_group
                 and header.nth_transaction_set  = nmPR_n3.nth_transaction_set
                 and header.claim_index          = nmPR_n3.claim_index
                 and header.other_sbr_index      = nmPR_n3.other_sbr_index
             left join
                 claim_sbr_nmPR_n4   as nmPR_n4
                 on  header.response_id          = nmPR_n4.response_id
+                and header.nth_functional_group = nmPR_n4.nth_functional_group
                 and header.nth_transaction_set  = nmPR_n4.nth_transaction_set
                 and header.claim_index          = nmPR_n4.claim_index
                 and header.other_sbr_index      = nmPR_n4.other_sbr_index
@@ -906,12 +938,14 @@ from        claim_sbr_header    as header
             left join
                 claim_sbr_cas       as cas
                 on  header.response_id          = cas.response_id
+                and header.nth_functional_group = cas.nth_functional_group
                 and header.nth_transaction_set  = cas.nth_transaction_set
                 and header.claim_index          = cas.claim_index
                 and header.other_sbr_index      = cas.other_sbr_index
             left join
                 claim_sbr_amt       as amt
                 on  header.response_id          = amt.response_id
+                and header.nth_functional_group = amt.nth_functional_group
                 and header.nth_transaction_set  = amt.nth_transaction_set
                 and header.claim_index          = amt.claim_index
                 and header.other_sbr_index      = amt.other_sbr_index
@@ -930,6 +964,7 @@ insert into
     edwprodhh.edi_837i_parser.claim_additional_subscribers
 (
     RESPONSE_ID,
+    NTH_FUNCTIONAL_GROUP,
     NTH_TRANSACTION_SET,
     INDEX,
     HL_INDEX_CURRENT,
@@ -1012,6 +1047,7 @@ with filtered_clm_sbr as
     with long as
     (
         select      filtered_clm_sbr.response_id,
+                    filtered_clm_sbr.nth_functional_group,
                     filtered_clm_sbr.nth_transaction_set,
                     filtered_clm_sbr.index,
                     filtered_clm_sbr.hl_index_current,
@@ -1060,6 +1096,7 @@ with filtered_clm_sbr as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -1085,6 +1122,7 @@ with filtered_clm_sbr as
     with long as
     (
         select      filtered_clm_sbr.response_id,
+                    filtered_clm_sbr.nth_functional_group,
                     filtered_clm_sbr.nth_transaction_set,
                     filtered_clm_sbr.index,
                     filtered_clm_sbr.hl_index_current,
@@ -1155,6 +1193,7 @@ with filtered_clm_sbr as
                         )
                     )   as pvt (
                         RESPONSE_ID,
+                        NTH_FUNCTIONAL_GROUP,
                         NTH_TRANSACTION_SET,
                         INDEX,
                         HL_INDEX_CURRENT,
@@ -1188,6 +1227,7 @@ with filtered_clm_sbr as
     , unpivoted as
     (
         select      response_id,
+                    nth_functional_group,
                     nth_transaction_set,
                     index,
                     hl_index_current,
@@ -1225,6 +1265,7 @@ with filtered_clm_sbr as
                     )   as unpvt
     )
     select      response_id,
+                nth_functional_group,
                 nth_transaction_set,
                 claim_index,
                 other_sbr_index,
@@ -1247,6 +1288,7 @@ with filtered_clm_sbr as
                     )
                 )   as pvt (
                     response_id,
+                    nth_functional_group,
                     nth_transaction_set,
                     index,
                     hl_index_current,
@@ -1266,14 +1308,15 @@ with filtered_clm_sbr as
                     and adj_amount is null
                     and adj_quantity is null
                 )
-    group by    1,2,3,4
-    order by    1,2,3,4
+    group by    1,2,3,4,5
+    order by    1,2,3,4,5
 )
 , claim_sbr_amt as
 (
     with long as
     (
         select      filtered_clm_sbr.response_id,
+                    filtered_clm_sbr.nth_functional_group,
                     filtered_clm_sbr.nth_transaction_set,
                     filtered_clm_sbr.index,
                     filtered_clm_sbr.hl_index_current,
@@ -1312,6 +1355,7 @@ with filtered_clm_sbr as
                         )
                     )   as pvt (
                         RESPONSE_ID,
+                        NTH_FUNCTIONAL_GROUP,
                         NTH_TRANSACTION_SET,
                         INDEX,
                         HL_INDEX_CURRENT,
@@ -1327,6 +1371,7 @@ with filtered_clm_sbr as
                     )
     )
     select      response_id,
+                nth_functional_group,
                 nth_transaction_set,
                 claim_index,
                 other_sbr_index,
@@ -1338,14 +1383,15 @@ with filtered_clm_sbr as
                     )
                 )   as amt_adj_array
     from        pivoted
-    group by    1,2,3,4
-    order by    1,2,3,4
+    group by    1,2,3,4,5
+    order by    1,2,3,4,5
 )
 , claim_sbr_oi as
 (
     with long as
     (
         select      filtered_clm_sbr.response_id,
+                    filtered_clm_sbr.nth_functional_group,
                     filtered_clm_sbr.nth_transaction_set,
                     filtered_clm_sbr.index,
                     filtered_clm_sbr.hl_index_current,
@@ -1388,6 +1434,7 @@ with filtered_clm_sbr as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -1410,6 +1457,7 @@ with filtered_clm_sbr as
     with long as
     (
         select      filtered_clm_sbr.response_id,
+                    filtered_clm_sbr.nth_functional_group,
                     filtered_clm_sbr.nth_transaction_set,
                     filtered_clm_sbr.index,
                     filtered_clm_sbr.hl_index_current,
@@ -1458,6 +1506,7 @@ with filtered_clm_sbr as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -1483,6 +1532,7 @@ with filtered_clm_sbr as
     with long as
     (
         select      filtered_clm_sbr.response_id,
+                    filtered_clm_sbr.nth_functional_group,
                     filtered_clm_sbr.nth_transaction_set,
                     filtered_clm_sbr.index,
                     filtered_clm_sbr.hl_index_current,
@@ -1518,6 +1568,7 @@ with filtered_clm_sbr as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -1536,6 +1587,7 @@ with filtered_clm_sbr as
     with long as
     (
         select      filtered_clm_sbr.response_id,
+                    filtered_clm_sbr.nth_functional_group,
                     filtered_clm_sbr.nth_transaction_set,
                     filtered_clm_sbr.index,
                     filtered_clm_sbr.hl_index_current,
@@ -1579,6 +1631,7 @@ with filtered_clm_sbr as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -1601,6 +1654,7 @@ with filtered_clm_sbr as
     with long as
     (
         select      filtered_clm_sbr.response_id,
+                    filtered_clm_sbr.nth_functional_group,
                     filtered_clm_sbr.nth_transaction_set,
                     filtered_clm_sbr.index,
                     filtered_clm_sbr.hl_index_current,
@@ -1649,6 +1703,7 @@ with filtered_clm_sbr as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -1674,6 +1729,7 @@ with filtered_clm_sbr as
     with long as
     (
         select      filtered_clm_sbr.response_id,
+                    filtered_clm_sbr.nth_functional_group,
                     filtered_clm_sbr.nth_transaction_set,
                     filtered_clm_sbr.index,
                     filtered_clm_sbr.hl_index_current,
@@ -1709,6 +1765,7 @@ with filtered_clm_sbr as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -1727,6 +1784,7 @@ with filtered_clm_sbr as
     with long as
     (
         select      filtered_clm_sbr.response_id,
+                    filtered_clm_sbr.nth_functional_group,
                     filtered_clm_sbr.nth_transaction_set,
                     filtered_clm_sbr.index,
                     filtered_clm_sbr.hl_index_current,
@@ -1770,6 +1828,7 @@ with filtered_clm_sbr as
                     )
                 )   as pvt (
                     RESPONSE_ID,
+                    NTH_FUNCTIONAL_GROUP,
                     NTH_TRANSACTION_SET,
                     INDEX,
                     HL_INDEX_CURRENT,
@@ -1788,6 +1847,7 @@ with filtered_clm_sbr as
                 )
 )
 select      header.response_id,
+            header.nth_functional_group,
             header.nth_transaction_set,
             header.index,
             header.hl_index_current,
@@ -1861,42 +1921,49 @@ from        claim_sbr_header    as header
             left join
                 claim_sbr_oi        as oi
                 on  header.response_id          = oi.response_id
+                and header.nth_functional_group = oi.nth_functional_group
                 and header.nth_transaction_set  = oi.nth_transaction_set
                 and header.claim_index          = oi.claim_index
                 and header.other_sbr_index      = oi.other_sbr_index
             left join
                 claim_sbr_nmIL      as nmIL
                 on  header.response_id          = nmIL.response_id
+                and header.nth_functional_group = nmIL.nth_functional_group
                 and header.nth_transaction_set  = nmIL.nth_transaction_set
                 and header.claim_index          = nmIL.claim_index
                 and header.other_sbr_index      = nmIL.other_sbr_index
             left join
                 claim_sbr_nmIL_n3   as nmIL_n3
                 on  header.response_id          = nmIL_n3.response_id
+                and header.nth_functional_group = nmIL_n3.nth_functional_group
                 and header.nth_transaction_set  = nmIL_n3.nth_transaction_set
                 and header.claim_index          = nmIL_n3.claim_index
                 and header.other_sbr_index      = nmIL_n3.other_sbr_index
             left join
                 claim_sbr_nmIL_n4   as nmIL_n4
                 on  header.response_id          = nmIL_n4.response_id
+                and header.nth_functional_group = nmIL_n4.nth_functional_group
                 and header.nth_transaction_set  = nmIL_n4.nth_transaction_set
                 and header.claim_index          = nmIL_n4.claim_index
                 and header.other_sbr_index      = nmIL_n4.other_sbr_index
             left join
                 claim_sbr_nmPR      as nmPR
                 on  header.response_id          = nmPR.response_id
+                and header.nth_functional_group = nmPR.nth_functional_group
                 and header.nth_transaction_set  = nmPR.nth_transaction_set
                 and header.claim_index          = nmPR.claim_index
                 and header.other_sbr_index      = nmPR.other_sbr_index
             left join
                 claim_sbr_nmPR_n3   as nmPR_n3
                 on  header.response_id          = nmPR_n3.response_id
+                and header.nth_functional_group = nmPR_n3.nth_functional_group
                 and header.nth_transaction_set  = nmPR_n3.nth_transaction_set
                 and header.claim_index          = nmPR_n3.claim_index
                 and header.other_sbr_index      = nmPR_n3.other_sbr_index
             left join
                 claim_sbr_nmPR_n4   as nmPR_n4
                 on  header.response_id          = nmPR_n4.response_id
+                and header.nth_functional_group = nmPR_n4.nth_functional_group
                 and header.nth_transaction_set  = nmPR_n4.nth_transaction_set
                 and header.claim_index          = nmPR_n4.claim_index
                 and header.other_sbr_index      = nmPR_n4.other_sbr_index
@@ -1904,12 +1971,14 @@ from        claim_sbr_header    as header
             left join
                 claim_sbr_cas       as cas
                 on  header.response_id          = cas.response_id
+                and header.nth_functional_group = cas.nth_functional_group
                 and header.nth_transaction_set  = cas.nth_transaction_set
                 and header.claim_index          = cas.claim_index
                 and header.other_sbr_index      = cas.other_sbr_index
             left join
                 claim_sbr_amt       as amt
                 on  header.response_id          = amt.response_id
+                and header.nth_functional_group = amt.nth_functional_group
                 and header.nth_transaction_set  = amt.nth_transaction_set
                 and header.claim_index          = amt.claim_index
                 and header.other_sbr_index      = amt.other_sbr_index
