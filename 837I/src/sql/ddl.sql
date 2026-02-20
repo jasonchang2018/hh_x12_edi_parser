@@ -25,10 +25,10 @@ create table
 )
 ;
 
--- snowsql -q "PUT file://\\\\hh-fileserver01\\TempUL2\\IU_Health_Complex\\837_FILES_IN\\2026\\*_i*.837 @edwprodhh.edi_837i_parser.stg_response auto_compress=false;"
+-- snowsql -q "PUT file://\\\\hh-fileserver01\\TempUL2\\IU_Health_Complex\\837_FILES_IN\\2026\\*_i*.837 @edwprodhh.edi_837i_parser.stg_response_iuhealth auto_compress=false;"
 list @edwprodhh.edi_837i_parser.stg_response_iuhealth;
 
--- snowsql -q "file://C:\\Users\\jchang\\Desktop\\Projects\\incidentals\\2026-02-13-riverwoods-837\\SampleFiles\\SampleFiles\\837\\*.CLM @edwprodhh.edi_837i_parser.stg_response auto_compress=false;"
+-- snowsql -q "file://C:\\Users\\jchang\\Desktop\\Projects\\incidentals\\2026-02-13-riverwoods-837\\SampleFiles\\SampleFiles\\837\\*.CLM @edwprodhh.edi_837i_parser.stg_response_riverwood auto_compress=false;"
 list @edwprodhh.edi_837i_parser.stg_response_riverwood;
 
 create or replace file format
