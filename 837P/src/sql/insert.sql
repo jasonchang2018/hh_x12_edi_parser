@@ -38,6 +38,7 @@ begin
                 file_name
     from        edwprodhh.edi_837p_parser.response
     where       upload_date = current_date()
+                and response_id not in (select response_id from edwprodhh.edi_837p_parser.response_files)
     ;
 
 end
