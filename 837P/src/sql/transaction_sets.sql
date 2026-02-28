@@ -104,8 +104,11 @@ with filtered as
                             when    flattened.index = 7   then      'TRANSACTION_TYPE_CODE'
                             end     as value_header,
 
-                    case    when    value_header = 'TRANSACTION_SET_CREATED_DATE'  then    to_date(nullif(trim(flattened.value), ''), 'YYYYMMDD')::text
-                            when    value_header = 'TRANSACTION_SET_CREATED_TIME'  then    to_time(nullif(trim(flattened.value), ''), 'HH24MISS')::text
+                    case    when    value_header = 'TRANSACTION_SET_CREATED_DATE'  then     to_date(nullif(trim(flattened.value), ''), 'YYYYMMDD')::text
+                            when    value_header = 'TRANSACTION_SET_CREATED_TIME'  then     case    when    length(nullif(trim(flattened.value), '')) = 4
+                                                                                                    then    to_time(nullif(trim(flattened.value), ''), 'HH24MI')::text
+                                                                                                    else    to_time(nullif(trim(flattened.value), ''), 'HH24MISS')::text
+                                                                                                    end
                             else    nullif(trim(flattened.value), '')
                             end     as value_format
 
@@ -544,8 +547,11 @@ with filtered as
                             when    flattened.index = 7   then      'TRANSACTION_TYPE_CODE'
                             end     as value_header,
 
-                    case    when    value_header = 'TRANSACTION_SET_CREATED_DATE'  then    to_date(nullif(trim(flattened.value), ''), 'YYYYMMDD')::text
-                            when    value_header = 'TRANSACTION_SET_CREATED_TIME'  then    to_time(nullif(trim(flattened.value), ''), 'HH24MISS')::text
+                    case    when    value_header = 'TRANSACTION_SET_CREATED_DATE'  then     to_date(nullif(trim(flattened.value), ''), 'YYYYMMDD')::text
+                            when    value_header = 'TRANSACTION_SET_CREATED_TIME'  then     case    when    length(nullif(trim(flattened.value), '')) = 4
+                                                                                                    then    to_time(nullif(trim(flattened.value), ''), 'HH24MI')::text
+                                                                                                    else    to_time(nullif(trim(flattened.value), ''), 'HH24MISS')::text
+                                                                                                    end
                             else    nullif(trim(flattened.value), '')
                             end     as value_format
 

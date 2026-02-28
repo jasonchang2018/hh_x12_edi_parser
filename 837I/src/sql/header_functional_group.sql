@@ -24,7 +24,10 @@ with header_gs as
                             end     as value_header,
 
                     case    when    value_header = 'FUNCTIONAL_GROUP_CREATED_DATE'  then    to_date(nullif(trim(flattened.value), ''), 'YYYYMMDD')::text
-                            when    value_header = 'FUNCTIONAL_GROUP_CREATED_TIME'  then    to_time(nullif(trim(flattened.value), ''), 'HH24MISS')::text
+                            when    value_header = 'FUNCTIONAL_GROUP_CREATED_TIME'  then    case    when    length(nullif(trim(flattened.value), '')) = 4
+                                                                                                    then    to_time(nullif(trim(flattened.value), ''), 'HH24MI')::text
+                                                                                                    else    to_time(nullif(trim(flattened.value), ''), 'HH24MISS')::text
+                                                                                                    end
                             else    nullif(trim(flattened.value), '')
                             end     as value_format
 
@@ -182,7 +185,10 @@ with header_gs as
                             end     as value_header,
 
                     case    when    value_header = 'FUNCTIONAL_GROUP_CREATED_DATE'  then    to_date(nullif(trim(flattened.value), ''), 'YYYYMMDD')::text
-                            when    value_header = 'FUNCTIONAL_GROUP_CREATED_TIME'  then    to_time(nullif(trim(flattened.value), ''), 'HH24MISS')::text
+                            when    value_header = 'FUNCTIONAL_GROUP_CREATED_TIME'  then    case    when    length(nullif(trim(flattened.value), '')) = 4
+                                                                                                    then    to_time(nullif(trim(flattened.value), ''), 'HH24MI')::text
+                                                                                                    else    to_time(nullif(trim(flattened.value), ''), 'HH24MISS')::text
+                                                                                                    end
                             else    nullif(trim(flattened.value), '')
                             end     as value_format
 
