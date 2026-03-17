@@ -1,7 +1,7 @@
 create schema edwprodhh.edi_837p_parser;
 
 create stage
-    edwprodhh.edi_837p_parser.stg_response
+    edwprodhh.edi_837p_parser.stg_response_iuhealth
 ;
 
 create table
@@ -22,8 +22,8 @@ create table
 )
 ;
 
--- snowsql -q "PUT file://\\\\hh-fileserver01\\TempUL2\\IU_Health_Complex\\837_FILES_IN\\2026\\*_p*.837 @edwprodhh.edi_837p_parser.stg_response auto_compress=false;"
--- list @edwprodhh.edi_837p_parser.stg_response;
+-- snowsql -q "PUT file://\\\\hh-fileserver01\\TempUL2\\IU_Health_Complex\\837_FILES_IN\\2026\\*_p*.837 @edwprodhh.edi_837p_parser.stg_response_iuhealth auto_compress=false;"
+-- list @edwprodhh.edi_837p_parser.stg_response_iuhealth;
 
 create or replace file format
     edwprodhh.edi_837p_parser.format_txt
