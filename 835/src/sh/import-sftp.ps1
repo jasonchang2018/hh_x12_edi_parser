@@ -23,7 +23,7 @@ $cmds = @()
 foreach ($f in $files) {
   $cmds += "rename $f archive-835/$f"
 }
-$cmds += "quit"
+# $cmds += "quit"
 
 # 3) Write the batch file. Currently, just copy and paste it manually into the SFTP terminal.
 $cmds | Set-Content -Encoding ASCII .\sftp-archive-835.txt
